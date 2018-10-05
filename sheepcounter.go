@@ -15,19 +15,19 @@ func NewSheepCounter(w http.ResponseWriter) *SheepCounter {
 	return &SheepCounter{w, 0}
 }
 
-// Header helps fullfill the http.ResponseWriter interface
+// Header helps fulfill the http.ResponseWriter interface
 func (sc *SheepCounter) Header() http.Header {
 	return sc.wrappedResponseWriter.Header()
 }
 
-// Write helps fullfill the http.ResponseWriter interface, while also recording the written bytes
+// Write helps fulfill the http.ResponseWriter interface, while also recording the written bytes
 func (sc *SheepCounter) Write(data []byte) (int, error) {
 	bytesWritten, err := sc.wrappedResponseWriter.Write(data)
 	sc.bytesWritten += int64(bytesWritten)
 	return bytesWritten, err
 }
 
-// WriteHeader helps fullfill the http.ResponseWriter interface
+// WriteHeader helps fulfill the http.ResponseWriter interface
 func (sc *SheepCounter) WriteHeader(statusCode int) {
 	sc.wrappedResponseWriter.WriteHeader(statusCode)
 }
