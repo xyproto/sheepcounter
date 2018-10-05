@@ -2,6 +2,35 @@
 
 A http.ResponseWriter that can count the number of bytes written so far.
 
+# Example use
+
+~~~go
+package main
+
+import (
+        "fmt"
+        "github.com/xyproto/sheepcounter"
+        "log"
+        "net/http"
+)
+
+func handler(w http.ResponseWriter, r *http.Request) {
+        sc := sheepcounter.NewSheepCounter(w)
+        fmt.Fprintf(sc, "Hi %s!", r.URL.Path[1:])
+        fmt.Println("COUNTED:", sc.Counter())
+}
+
+func main() {
+        http.HandleFunc("/", handler)
+        fmt.Println("Serving on port 8080")
+        log.Fatal(http.ListenAndServe(":8080", nil))
+}
+~~~
+
+# Requirements
+
+* Go 1.8 or later
+
 # General information
 
 * Version: 1.0.0
