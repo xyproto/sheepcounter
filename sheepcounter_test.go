@@ -23,10 +23,9 @@ func TestCounting(t *testing.T) {
 			sc := NewSheepCounter(w)
 			fmt.Fprintln(sc, "Hi") // 3 bytes
 			counted <- sc.Counter()
-			done <- true
 		}),
-		ReadTimeout:    10 * time.Second,
-		WriteTimeout:   10 * time.Second,
+		ReadTimeout:    1 * time.Second,
+		WriteTimeout:   1 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
 	go func() {
@@ -38,4 +37,5 @@ func TestCounting(t *testing.T) {
 	if <-counted != 3 {
 		t.Error("Wrong byte count!")
 	}
+	done <- true
 }
