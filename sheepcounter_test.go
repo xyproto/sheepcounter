@@ -10,7 +10,7 @@ import (
 )
 
 func TestInterface(t *testing.T) {
-	sc := NewSheepCounter(httptest.NewRecorder())
+	sc := New(httptest.NewRecorder())
 	var _ http.ResponseWriter = sc
 }
 
