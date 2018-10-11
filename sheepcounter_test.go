@@ -25,8 +25,8 @@ func TestCounting(t *testing.T) {
 			fmt.Fprintln(sc, "Hi") // 3 bytes
 			counted <- sc.Counter()
 		}),
-		ReadTimeout:    1 * time.Second,
-		WriteTimeout:   1 * time.Second,
+		ReadTimeout:    10 * time.Second,
+		WriteTimeout:   10 * time.Second,
 		MaxHeaderBytes: 1 << 20,
 	}
 	go func() {
