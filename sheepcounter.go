@@ -1,10 +1,10 @@
 package sheepcounter
 
 import (
-	"net/http"
+	"bufio"
 	"errors"
 	"net"
-	"bufio"
+	"net/http"
 )
 
 var (
