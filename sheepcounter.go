@@ -2,6 +2,13 @@ package sheepcounter
 
 import (
 	"net/http"
+	"errors"
+	"net"
+	"bufio"
+)
+
+var (
+	errNoHijack = errors.New("the wrapped http.ResponseWriter does not implement http.Hijacker")
 )
 
 // SheepCounter is a struct that both wraps and implements a http.ResponseWriter
@@ -43,4 +50,13 @@ func (sc *SheepCounter) Counter() int64 {
 // Reset resets the written bytes counter
 func (sc *SheepCounter) Reset() {
 	sc.bytesWritten = 0
+}
+
+// Hijack helps fulfill the http.Hijack interface
+func (sc *SheepCounter) Hijack() (net.Conn, *bufio.ReadWriter, error) {
+	w, implementsHijacker := sc.wrappedResponseWriter.(http.Hijacker)
+	if !implementsHijacker {
+		return nil, nil, errNoHijack
+	}
+	return w.Hijack()
 }

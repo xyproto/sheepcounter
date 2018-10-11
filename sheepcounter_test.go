@@ -12,6 +12,7 @@ import (
 func TestInterface(t *testing.T) {
 	sc := New(httptest.NewRecorder())
 	var _ http.ResponseWriter = sc
+	var _ http.Hijacker = sc
 }
 
 func TestCounting(t *testing.T) {
