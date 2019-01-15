@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+const addr = ":1911"
+
 func TestInterface(t *testing.T) {
 	sc := New(httptest.NewRecorder())
 	var _ http.ResponseWriter = sc
@@ -19,7 +21,7 @@ func TestCounting(t *testing.T) {
 	counted := make(chan int64)
 	done := make(chan bool)
 	srv := &http.Server{
-		Addr: ":8080",
+		Addr: addr,
 		Handler: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			sc := NewSheepCounter(w)
 			fmt.Fprintln(sc, "Hi") // 3 bytes
@@ -34,7 +36,7 @@ func TestCounting(t *testing.T) {
 		srv.Shutdown(context.Background())
 	}()
 	go srv.ListenAndServe()
-	go http.Get("http://localhost:8080/")
+	go http.Get("http://localhost" + addr + "/")
 	if <-counted != 3 {
 		t.Error("Wrong byte count!")
 	}
