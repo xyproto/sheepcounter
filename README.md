@@ -102,10 +102,10 @@ func main() {
 
 # Requirements
 
-* Go 1.8 or later
+* Go 1.18 or later
 
 # General information
 
-* Version: 1.6.0
+* Version: 1.6.1
 * Alexander F. Rødseth &lt;xyproto@archlinux.org&gt;
-* License: MIT
+* License: BSD-3
