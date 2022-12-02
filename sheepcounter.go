@@ -1,3 +1,4 @@
+// Package sheepcounter is a byte counter that wraps a http.ResponseWriter
 package sheepcounter
 
 import (
